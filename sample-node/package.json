@@ -1,0 +1,23 @@
+{
+  "name": "sample-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "graylog2": "^0.2.1",
+    "prom-client": "^14.2.0",
+    "response-time": "^2.3.2",
+    "rimraf": "^5.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}

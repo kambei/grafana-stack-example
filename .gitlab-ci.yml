@@ -1,0 +1,21 @@
+stages:
+  - release
+
+.release-job:
+  stage: release
+  trigger:
+    strategy: depend
+
+sample-go:
+  extends:
+    - .release-job
+  trigger:
+    include:
+      - local: sample-go/.gitlab-ci.yml
+
+sample-node:
+  extends:
+    - .release-job
+  trigger:
+    include:
+      - local: sample-node/.gitlab-ci.yml

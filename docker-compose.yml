@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - ./loki-config.yml:/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    image: grafana/promtail:latest
+    ports:
+      - "12201:12201/udp"
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/config.yml
+    command:
+      - -config.file=/etc/promtail/config.yml
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  ##### SERVICES #####
+  sample-go:
+    image: sample-go
+    ports:
+      - 8081:8080
+    
+  sample-node:
+    image: sample-node
+    ports:
+      - 8082:8080
+
+
+
+volumes:
+  grafana-storage:

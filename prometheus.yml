@@ -1,0 +1,17 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'sample-go'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['sample-go:8080']
+  - job_name: 'sample-node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['sample-node:8080']

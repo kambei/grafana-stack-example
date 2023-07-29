@@ -1,0 +1,29 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: gelf
+  gelf:
+    listen_address: 0.0.0.0:12201
+    use_incoming_timestamp: false
+    labels:
+      __gelf_message_facility: facility
+      __gelf_message_host: host
+      __gelf_message_level: level
+  relabel_configs:
+      - action: replace
+        source_labels:
+          - __gelf_message_level
+        target_label: level
+      - action: replace
+        source_labels:
+          - __gelf_message_host
+        target_label: host
+      - action: replace
+        source_labels:
+          - __gelf_message_facility
+        target_label: facility
