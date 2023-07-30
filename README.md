@@ -2,14 +2,9 @@
 
 ## BUILD
 
-- Go in sample-go folder and run:
+- Launch:
 ```bash
-docker build -t sample-go .
-```
-
-- Go in sample-node folder and run:
-```bash
-docker build -t sample-node .
+./build.sh
 ```
 
 
@@ -18,6 +13,13 @@ docker build -t sample-node .
 <br>
 
 - Launch:
+```bash
+./run.sh
+```
+
+or:
+
+
 ```bash
 docker compose up -d
 ```
@@ -35,8 +37,10 @@ docker compose up -d
 <br>
 
 - Make some POST with a JSON body to 
-  - http://localhost:8081/sample/test
-  - http://localhost:8082/sample/test
+  - http://localhost:8081/sample/test (sample-go)
+  - http://localhost:8082/sample/test (sample-node)
+  - http://localhost:8083/sample/test (sample-quarkus)
+  - http://localhost:8084/sample/test (sample-spring)
 
 <br>
 

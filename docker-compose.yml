@@ -46,6 +46,23 @@ services:
     ports:
       - 8082:8080
 
+  sample-quarkus:
+    image: sample-quarkus:1.0.0-SNAPSHOT
+    ports:
+      - 8083:8080
+    environment:
+      - quarkus.log.handler.gelf.host=promtail
+      - quarkus.log.handler.gelf.port=12201
+      - quarkus.log.handler.gelf.origin-host=sample-quarkus
+    
+  sample-spring:
+    image: sample-spring
+    ports:
+      - 8084:8080
+    environment:
+      - LOGS_HOST=promtail
+      - LOGS_PORT=12201
+      - LOGS_LVL=INFO
 
 
 volumes:

@@ -1,0 +1,30 @@
+image: gradle:jdk17
+
+variables:
+  IMAGE_NAME: "sample-quarkus"
+  DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+
+.only-version-change:
+  refs:
+    - main
+  changes:
+    - build.gradle
+
+stages:
+  - build
+
+build:
+  services:
+    - name: docker:dind
+      command: [ "--tls=false" ]
+  stage: build
+  script:
+    - curl -fsSL https://get.docker.com | sh
+    - service docker start
+    - gradle build -Dquarkus.container-image.build=true
+      -Dquarkus.container-image.group=$CI_REGISTRY_IMAGE -x test
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE/$IMAGE_NAME --all-tags
+  only: !reference [.only-version-change]
