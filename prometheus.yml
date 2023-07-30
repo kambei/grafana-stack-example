@@ -15,3 +15,14 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['sample-node:8080']
+  - job_name: 'sample-quarkus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['sample-quarkus:8080']
+    metrics_path: /q/metrics
+  - job_name: 'sample-spring'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['sample-spring:8080']
+    metrics_path: /actuator/prometheus
+
